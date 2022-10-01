@@ -33,11 +33,18 @@ function App() {
         </Geographies>
         {libraries.map((library) => (
           <Marker
-            onClick={() => console.log(library)}
+            onClick={() => console.log(library.library)}
             key={library.longitude + Math.random()}
             coordinates={[library.longitude, library.latitude]}
           >
             <circle r={2} fill="#F00" stroke="#fff" strokeWidth={1} />
+            {/* <text
+              textAnchor="middle"
+              y={-10}
+              style={{ fontFamily: 'system-ui', fill: '#5D5A6D', fontSize: 2 }}
+            >
+              {library.library}
+            </text> */}
           </Marker>
         ))}
       </ComposableMap>
