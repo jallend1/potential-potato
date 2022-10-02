@@ -6,21 +6,20 @@ import {
   ZoomableGroup
 } from 'react-simple-maps';
 // import USMap from './assets/us-albers-counties.json';
-import { libraries } from './assets/coordinates.js';
 // import USMap from './assets/5m-US-counties.json';
 // import USMap from './assets/10m.json';
+import { libraries } from './assets/coordinates.js';
 import USMap from './assets/north-america.json';
 
 function App() {
   const geoURL = USMap;
-  console.log(libraries);
   return (
     <div className="App">
       <ComposableMap
         project="geoAlbers"
         projectionConfig={{
           scale: 400,
-          center: [-80, 40],
+          center: [-125, 50],
           rotate: [0, 0, 0]
         }}
       >
