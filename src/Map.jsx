@@ -5,22 +5,30 @@ import {
   Marker
 } from 'react-simple-maps';
 import USMap from './assets/north-america.json';
+// import USMap from './assets/us-albers-counties.json';
+// import USMap from './assets/5m-US-counties.json';
+// import USMap from './assets/10m.json';
 
 const Map = ({ libraries }) => {
   const geoURL = USMap;
   return (
     <ComposableMap
-      project="geoAlbers"
+      project="geoEqualEarth"
       projectionConfig={{
         scale: 400,
-        center: [-125, 50],
-        rotate: [0, 0, 0]
+        center: [-125, 50]
       }}
     >
       <Geographies geography={geoURL}>
         {({ geographies }) =>
           geographies.map((geo) => (
-            <Geography key={geo.rsmKey} geography={geo} />
+            <Geography
+              key={geo.rsmKey}
+              geography={geo}
+              fill="#FFF"
+              stroke="#06F"
+              strokeWidth={1}
+            />
           ))
         }
       </Geographies>
