@@ -1,10 +1,11 @@
 import Map from './Map';
-import { libraries } from './assets/coordinates.js';
+import libraryLocations from './assets/libraryLocations.json';
 
 function App() {
+  console.log(libraryLocations);
   return (
     <div className="App">
-      <Map libraries={libraries} />
+      <Map libraries={libraryLocations} />
     </div>
   );
 }
