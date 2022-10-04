@@ -4,12 +4,14 @@ import {
   Geography,
   Marker
 } from 'react-simple-maps';
+import libraryLocations from './assets/libraryLocations.json';
 import USMap from './assets/north-america.json';
+
 // import USMap from './assets/us-albers-counties.json';
 // import USMap from './assets/5m-US-counties.json';
 // import USMap from './assets/10m.json';
 
-const Map = ({ libraries }) => {
+const Map = () => {
   const geoURL = USMap;
   return (
     <ComposableMap
@@ -32,7 +34,7 @@ const Map = ({ libraries }) => {
           ))
         }
       </Geographies>
-      {libraries.map((library) => (
+      {libraryLocations.map((library) => (
         <Marker
           onClick={() => console.log(library.library)}
           key={library.longitude + Math.random()}
