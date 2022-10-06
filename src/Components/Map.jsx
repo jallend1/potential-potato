@@ -4,8 +4,8 @@ import {
   Geography,
   Marker
 } from 'react-simple-maps';
-import libraryLocations from './assets/libraryLocations.json';
-import USMap from './assets/north-america.json';
+import libraryLocations from '../assets/libraryLocations.json';
+import USMap from '../assets/north-america.json';
 
 // import USMap from './assets/us-albers-counties.json';
 // import USMap from './assets/5m-US-counties.json';
@@ -41,13 +41,6 @@ const Map = () => {
           coordinates={[library.longitude, library.latitude]}
         >
           <circle r={2} fill="#F00" stroke="#fff" strokeWidth={1} />
-          {/* <text
-              textAnchor="middle"
-              y={-10}
-              style={{ fontFamily: 'system-ui', fill: '#5D5A6D', fontSize: 2 }}
-            >
-              {library.library}
-            </text> */}
         </Marker>
       ))}
     </ComposableMap>
