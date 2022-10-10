@@ -4,9 +4,11 @@ import {
   Geography,
   Marker
 } from 'react-simple-maps';
-import libraryLocations from '../assets/libraryLocations.json';
-import USMap from '../assets/north-america.json';
 
+// import libraryLocations from '../assets/libraryLocations.json';
+import libraryLocations from '../assets/locations.json';
+import USMap from '../assets/north-america.json';
+// const USMap = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
 // import USMap from './assets/us-albers-counties.json';
 // import USMap from './assets/5m-US-counties.json';
 // import USMap from './assets/10m.json';
@@ -18,7 +20,7 @@ const Map = () => {
       project="geoEqualEarth"
       projectionConfig={{
         scale: 400,
-        center: [-125, 50]
+        center: [-100, 55]
       }}
     >
       <Geographies geography={geoURL}>

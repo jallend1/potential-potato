@@ -5,7 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  max-height: 100vh;
 }
 
 code {
@@ -14,5 +13,6 @@ code {
 }
 
 svg {
-  max-height: 98vh;
+  display: inline-block;
+  vertical-align: middle;
 }
