@@ -14,16 +14,9 @@ import USMap from '../assets/north-america.json';
 // import USMap from './assets/10m.json';
 
 const Map = () => {
-  const geoURL = USMap;
   return (
-    <ComposableMap
-      project="geoEqualEarth"
-      projectionConfig={{
-        scale: 400,
-        center: [-100, 55]
-      }}
-    >
-      <Geographies geography={geoURL}>
+    <ComposableMap project="geoEqualEarth">
+      <Geographies geography={USMap}>
         {({ geographies }) =>
           geographies.map((geo) => (
             <Geography
@@ -45,6 +38,11 @@ const Map = () => {
           <circle r={2} fill="#F00" stroke="#fff" strokeWidth={1} />
         </Marker>
       ))}
+      {/* {setInterval(() => {
+        const newDiv = document.createElement('div');
+        newDiv.innerHTML = 'This is gonna be a marker someday!';
+        document.body.appendChild(newDiv);
+      }, 1000)} */}
     </ComposableMap>
   );
 };
