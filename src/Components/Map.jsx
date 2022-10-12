@@ -15,7 +15,10 @@ import USMap from '../assets/north-america.json';
 
 const Map = () => {
   return (
-    <ComposableMap project="geoEqualEarth">
+    <ComposableMap
+      projection="geoAlbers"
+      projectionConfig={{ scale: 450, center: [-10, 45] }}
+    >
       <Geographies geography={USMap}>
         {({ geographies }) =>
           geographies.map((geo) => (
@@ -35,7 +38,7 @@ const Map = () => {
           key={library.longitude + Math.random()}
           coordinates={[library.longitude, library.latitude]}
         >
-          <circle r={2} fill="#F00" stroke="#fff" strokeWidth={1} />
+          <circle r={1.2} fill="#F10" stroke="#fff" strokeWidth={1} />
         </Marker>
       ))}
       {/* {setInterval(() => {
