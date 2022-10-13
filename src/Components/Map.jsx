@@ -4,7 +4,7 @@ import {
   Geography,
   Marker
 } from 'react-simple-maps';
-
+import { useState, useEffect, useRef } from 'react';
 // import libraryLocations from '../assets/libraryLocations.json';
 import libraryLocations from '../assets/locations.json';
 import USMap from '../assets/north-america.json';
@@ -14,6 +14,26 @@ import USMap from '../assets/north-america.json';
 // import USMap from './assets/10m.json';
 
 const Map = () => {
+  const timerRef = useRef(null);
+  const [mappedLibraries, setMappedLibraries] = useState([]);
+  let index = 0;
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      index++;
+      if (index > libraryLocations.length - 1) {
+        clearInterval(timerRef.current);
+      } else {
+        setMappedLibraries((prevState) => {
+          return [...prevState, libraryLocations[index]];
+        });
+      }
+    }, 100);
+    return () => {
+      clearInterval(timerRef.current);
+    };
+  }, [index]);
+
   return (
     <ComposableMap
       projection="geoAlbers"
@@ -32,20 +52,16 @@ const Map = () => {
           ))
         }
       </Geographies>
-      {libraryLocations.map((library) => (
-        <Marker
-          onClick={() => console.log(library.library)}
-          key={library.longitude + Math.random()}
-          coordinates={[library.longitude, library.latitude]}
-        >
-          <circle r={1.2} fill="#F10" stroke="#fff" strokeWidth={1} />
-        </Marker>
-      ))}
-      {/* {setInterval(() => {
-        const newDiv = document.createElement('div');
-        newDiv.innerHTML = 'This is gonna be a marker someday!';
-        document.body.appendChild(newDiv);
-      }, 1000)} */}
+      {mappedLibraries.length > 0 &&
+        mappedLibraries.map((library) => (
+          <Marker
+            onClick={() => console.log(library.library)}
+            key={library.longitude + Math.random()}
+            coordinates={[library.longitude, library.latitude]}
+          >
+            <circle r={2} fill="#F10" stroke="#fff" strokeWidth={1} />
+          </Marker>
+        ))}
     </ComposableMap>
   );
 };
