@@ -23,9 +23,7 @@ const Map = () => {
       index++;
       if (index > libraryLocations.length - 1) {
         clearInterval(timerRef.current);
-        console.log('Done!');
       } else {
-        console.log('Were still running!');
         setMappedLibraries((prevState) => {
           return [...prevState, libraryLocations[index]];
         });
