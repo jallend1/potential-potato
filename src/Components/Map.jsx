@@ -9,21 +9,23 @@ import { useState, useEffect, useRef } from 'react';
 import libraryLocations from '../assets/locations.json';
 import USMap from '../assets/north-america.json';
 // const USMap = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
-// import USMap from './assets/us-albers-counties.json';
-// import USMap from './assets/5m-US-counties.json';
-// import USMap from './assets/10m.json';
+// import USMap from '../assets/us-albers-counties.json';
+// import USMap from '../assets/5m-US-counties.json';
+// import USMap from '../assets/10m.json';
 
 const Map = () => {
   const timerRef = useRef(null);
   const [mappedLibraries, setMappedLibraries] = useState([]);
-  let index = 0;
+  let index = -1;
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
       index++;
       if (index > libraryLocations.length - 1) {
         clearInterval(timerRef.current);
+        console.log('Done!');
       } else {
+        console.log('Were still running!');
         setMappedLibraries((prevState) => {
           return [...prevState, libraryLocations[index]];
         });
