@@ -2,7 +2,8 @@ import {
   ComposableMap,
   Geographies,
   Geography,
-  Marker
+  Marker,
+  ZoomableGroup
 } from 'react-simple-maps';
 import { useState, useEffect, useRef } from 'react';
 // import libraryLocations from '../assets/libraryLocations.json';
@@ -14,11 +15,25 @@ import USMap from '../assets/north-america.json';
 // import USMap from '../assets/10m.json';
 
 const Map = () => {
+  const populateMapRate = 100;
   const timerRef = useRef(null);
   const [mappedLibraries, setMappedLibraries] = useState([]);
+  const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
+
   let index = -1;
 
+  function handleZoomIn() {
+    console.log('here we gooooo!');
+
+    setPosition((pos) => ({ ...pos, zoom: pos.zoom * 2 }));
+  }
+
+  function handleMoveEnd(position) {
+    setPosition(position);
+  }
+
   useEffect(() => {
+    // Sets interval to populate map with markers
     timerRef.current = setInterval(() => {
       index++;
       if (index > libraryLocations.length - 1) {
@@ -28,40 +43,43 @@ const Map = () => {
           return [...prevState, libraryLocations[index]];
         });
       }
-    }, 100);
+    }, populateMapRate);
     return () => {
       clearInterval(timerRef.current);
     };
   }, [index]);
 
   return (
-    <ComposableMap
-      projection="geoAlbers"
-      projectionConfig={{ scale: 450, center: [-10, 45] }}
-    >
-      <Geographies geography={USMap}>
-        {({ geographies }) =>
-          geographies.map((geo) => (
-            <Geography
-              key={geo.rsmKey}
-              geography={geo}
-              fill="#FFF"
-              stroke="#06F"
-              strokeWidth={1}
-            />
-          ))
-        }
-      </Geographies>
-      {mappedLibraries.length > 0 &&
-        mappedLibraries.map((library) => (
-          <Marker
-            onClick={() => console.log(library.library)}
-            key={library.longitude + Math.random()}
-            coordinates={[library.longitude, library.latitude]}
-          >
-            <circle r={2} fill="#F10" stroke="#fff" strokeWidth={1} />
-          </Marker>
-        ))}
+    <ComposableMap projection="geoAlbers" projectionConfig={{ scale: 500 }}>
+      <ZoomableGroup
+        zoom={position.zoom}
+        onMoveEnd={handleMoveEnd}
+        center={position.coordinates}
+      >
+        <Geographies geography={USMap}>
+          {({ geographies }) =>
+            geographies.map((geo) => (
+              <Geography
+                key={geo.rsmKey}
+                geography={geo}
+                fill="#FFF"
+                stroke="#06F"
+                strokeWidth={1}
+              />
+            ))
+          }
+        </Geographies>
+        {mappedLibraries.length > 0 &&
+          mappedLibraries.map((library) => (
+            <Marker
+              onClick={() => console.log(library.library)}
+              key={library.longitude + Math.random()}
+              coordinates={[library.longitude, library.latitude]}
+            >
+              <circle r={1} fill="#F10" stroke="#fff" strokeWidth={0} />
+            </Marker>
+          ))}
+      </ZoomableGroup>
     </ComposableMap>
   );
 };
