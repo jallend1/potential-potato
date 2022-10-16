@@ -6,7 +6,6 @@ import {
   ZoomableGroup
 } from 'react-simple-maps';
 import { useState, useEffect, useRef } from 'react';
-// import libraryLocations from '../assets/libraryLocations.json';
 import libraryLocations from '../assets/locations.json';
 import USMap from '../assets/north-america.json';
 // const USMap = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
@@ -21,12 +20,6 @@ const Map = () => {
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
 
   let index = -1;
-
-  function handleZoomIn() {
-    console.log('here we gooooo!');
-
-    setPosition((pos) => ({ ...pos, zoom: pos.zoom * 2 }));
-  }
 
   function handleMoveEnd(position) {
     setPosition(position);
@@ -50,7 +43,10 @@ const Map = () => {
   }, [index]);
 
   return (
-    <ComposableMap projection="geoAlbers" projectionConfig={{ scale: 500 }}>
+    <ComposableMap
+      projection="geoAlbers"
+      projectionConfig={{ scale: 300, center: [0, 100] }}
+    >
       <ZoomableGroup
         zoom={position.zoom}
         onMoveEnd={handleMoveEnd}
@@ -76,7 +72,7 @@ const Map = () => {
               key={library.longitude + Math.random()}
               coordinates={[library.longitude, library.latitude]}
             >
-              <circle r={1} fill="#F10" stroke="#fff" strokeWidth={0} />
+              <circle r={0.5} fill="#F10" stroke="#fff" strokeWidth={0} />
             </Marker>
           ))}
       </ZoomableGroup>
