@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef, memo } from 'react';
+import uuid from 'react-uuid';
 import {
   ComposableMap,
   Geographies,
@@ -6,7 +8,6 @@ import {
   Annotation,
   ZoomableGroup
 } from 'react-simple-maps';
-import { useState, useEffect, useRef, memo } from 'react';
 import libraryLocations from '../assets/locations.json';
 import USMap from '../assets/north-america.json';
 // const USMap = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
@@ -69,30 +70,29 @@ const Map = ({ setTooltipContent }) => {
           </Geographies>
           {mappedLibraries.length > 0 &&
             mappedLibraries.map((library) => (
-              <>
-                <Marker
-                  key={library.longitude + Math.random()}
-                  coordinates={[library.longitude, library.latitude]}
-                  onMouseEnter={() =>
-                    setTooltipContent(`${library.googleMapsName}`)
-                  }
-                  onMouseLeave={() => setTooltipContent('')}
-                >
-                  <circle r={0.5} fill="#F10" stroke="#fff" strokeWidth={0} />
-                </Marker>
-                {latestLibrary && (
-                  <Annotation
-                    subject={[latestLibrary.longitude, latestLibrary.latitude]}
-                    dx={0}
-                    dy={0}
-                  >
-                    <text x={5} fontSize={10} alignmentBaseline="middle">
-                      {latestLibrary.googleMapsName}
-                    </text>
-                  </Annotation>
-                )}
-              </>
+              <Marker
+                key={uuid()}
+                coordinates={[library.longitude, library.latitude]}
+                onMouseEnter={() =>
+                  setTooltipContent(`${library.googleMapsName}`)
+                }
+                onMouseLeave={() => setTooltipContent('')}
+              >
+                <circle r={0.5} fill="#F10" stroke="#fff" strokeWidth={0} />
+              </Marker>
             ))}
+          {latestLibrary && (
+            <Annotation
+              key={uuid()}
+              subject={[latestLibrary.longitude, latestLibrary.latitude]}
+              dx={0}
+              dy={0}
+            >
+              <text x={5} fontSize={10} alignmentBaseline="middle">
+                {latestLibrary.googleMapsName}
+              </text>
+            </Annotation>
+          )}
         </ZoomableGroup>
       </ComposableMap>
     </div>
