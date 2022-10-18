@@ -9,8 +9,8 @@ import {
   ZoomableGroup
 } from 'react-simple-maps';
 import libraryLocations from '../assets/locations.json';
-import USMap from '../assets/north-america.json';
-// const USMap = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
+// import USMap from '../assets/north-america.json';
+const USMap = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
 // import USMap from '../assets/us-albers-counties.json';
 // import USMap from '../assets/5m-US-counties.json';
 // import USMap from '../assets/10m.json';
@@ -88,7 +88,12 @@ const Map = ({ setTooltipContent }) => {
               dx={0}
               dy={0}
             >
-              <text x={5} fontSize={10} alignmentBaseline="middle">
+              <text
+                x={5}
+                fontSize={10}
+                alignmentBaseline="middle"
+                enableBackground={'red'}
+              >
                 {latestLibrary.googleMapsName}
               </text>
             </Annotation>
