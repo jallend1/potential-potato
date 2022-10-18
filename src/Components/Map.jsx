@@ -68,7 +68,9 @@ const Map = ({ setTooltipContent }) => {
               <Marker
                 key={library.longitude + Math.random()}
                 coordinates={[library.longitude, library.latitude]}
-                onMouseEnter={() => setTooltipContent(`${library.name}`)}
+                onMouseEnter={() =>
+                  setTooltipContent(`${library.googleMapsName}`)
+                }
                 onMouseLeave={() => setTooltipContent('')}
               >
                 <circle r={0.5} fill="#F10" stroke="#fff" strokeWidth={0} />
