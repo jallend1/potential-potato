@@ -3,6 +3,7 @@ import {
   Geographies,
   Geography,
   Marker,
+  Annotation,
   ZoomableGroup
 } from 'react-simple-maps';
 import { useState, useEffect, useRef, memo } from 'react';
@@ -14,7 +15,7 @@ import USMap from '../assets/north-america.json';
 // import USMap from '../assets/10m.json';
 
 const Map = ({ setTooltipContent }) => {
-  const populateMapRate = 100;
+  const populateMapRate = 500;
   const timerRef = useRef(null);
   const [mappedLibraries, setMappedLibraries] = useState([]);
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
@@ -65,16 +66,30 @@ const Map = ({ setTooltipContent }) => {
           </Geographies>
           {mappedLibraries.length > 0 &&
             mappedLibraries.map((library) => (
-              <Marker
-                key={library.longitude + Math.random()}
-                coordinates={[library.longitude, library.latitude]}
-                onMouseEnter={() =>
-                  setTooltipContent(`${library.googleMapsName}`)
-                }
-                onMouseLeave={() => setTooltipContent('')}
-              >
-                <circle r={0.5} fill="#F10" stroke="#fff" strokeWidth={0} />
-              </Marker>
+              <>
+                <Marker
+                  key={library.longitude + Math.random()}
+                  coordinates={[library.longitude, library.latitude]}
+                  onMouseEnter={() =>
+                    setTooltipContent(`${library.googleMapsName}`)
+                  }
+                  onMouseLeave={() => setTooltipContent('')}
+                >
+                  <circle r={0.5} fill="#F10" stroke="#fff" strokeWidth={0} />
+                </Marker>
+                <Annotation
+                  subject={[
+                    mappedLibraries[mappedLibraries.length - 1].longitude,
+                    mappedLibraries[mappedLibraries.length - 1].latitude
+                  ]}
+                  dx={0}
+                  dy={0}
+                >
+                  <text fontSize={10} alignmentBaseline="middle">
+                    {mappedLibraries[mappedLibraries.length - 1].googleMapsName}
+                  </text>
+                </Annotation>
+              </>
             ))}
         </ZoomableGroup>
       </ComposableMap>
