@@ -18,6 +18,7 @@ const Map = ({ setTooltipContent }) => {
   const populateMapRate = 500;
   const timerRef = useRef(null);
   const [mappedLibraries, setMappedLibraries] = useState([]);
+  const [latestLibrary, setLatestLibrary] = useState(null);
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
 
   let index = -1;
@@ -32,10 +33,12 @@ const Map = ({ setTooltipContent }) => {
       index++;
       if (index > libraryLocations.length - 1) {
         clearInterval(timerRef.current);
+        setLatestLibrary(null);
       } else {
         setMappedLibraries((prevState) => {
           return [...prevState, libraryLocations[index]];
         });
+        setLatestLibrary(libraryLocations[index]);
       }
     }, populateMapRate);
     return () => {
@@ -77,18 +80,17 @@ const Map = ({ setTooltipContent }) => {
                 >
                   <circle r={0.5} fill="#F10" stroke="#fff" strokeWidth={0} />
                 </Marker>
-                <Annotation
-                  subject={[
-                    mappedLibraries[mappedLibraries.length - 1].longitude,
-                    mappedLibraries[mappedLibraries.length - 1].latitude
-                  ]}
-                  dx={0}
-                  dy={0}
-                >
-                  <text fontSize={10} alignmentBaseline="middle">
-                    {mappedLibraries[mappedLibraries.length - 1].googleMapsName}
-                  </text>
-                </Annotation>
+                {latestLibrary && (
+                  <Annotation
+                    subject={[latestLibrary.longitude, latestLibrary.latitude]}
+                    dx={0}
+                    dy={0}
+                  >
+                    <text x={5} fontSize={10} alignmentBaseline="middle">
+                      {latestLibrary.googleMapsName}
+                    </text>
+                  </Annotation>
+                )}
               </>
             ))}
         </ZoomableGroup>
