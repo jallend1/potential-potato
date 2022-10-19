@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+.map-container {
+  display: flex;
+  justify-content: center;
+}
+
 .rsm-annotation {
   font-weight: bold;
 }

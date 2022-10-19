@@ -48,8 +48,15 @@ const Map = ({ setTooltipContent }) => {
   }, [index]);
 
   return (
-    <div data-tip="">
-      <ComposableMap projection="geoAlbers">
+    <div data-tip="" className="map-container">
+      <ComposableMap
+        projection="geoAlbers"
+        style={{
+          // maxWidth: window.innerWidth,
+          maxHeight: window.innerHeight * 0.8,
+          border: 'solid 1px purple'
+        }}
+      >
         <ZoomableGroup
           zoom={position.zoom}
           onMoveEnd={handleMoveEnd}
