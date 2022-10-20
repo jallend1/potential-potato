@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+header h1 {
+  text-align: center;
+}
+
 .map-container {
   display: flex;
   justify-content: center;
