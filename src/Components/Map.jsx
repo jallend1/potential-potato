@@ -16,7 +16,7 @@ const USMap = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
 // import USMap from '../assets/10m.json';
 
 const Map = ({ setTooltipContent }) => {
-  const populateMapRate = 500;
+  const populateMapRate = 300;
   const timerRef = useRef(null);
   const [mappedLibraries, setMappedLibraries] = useState([]);
   const [latestLibrary, setLatestLibrary] = useState(null);
@@ -68,9 +68,10 @@ const Map = ({ setTooltipContent }) => {
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill="#FFF"
-                  stroke="#06F"
-                  strokeWidth={1}
+                  fill="#DDD"
+                  stroke="#888"
+                  strokeWidth={0.5}
+                  opacity={0.5}
                 />
               ))
             }
@@ -85,7 +86,7 @@ const Map = ({ setTooltipContent }) => {
                 }
                 onMouseLeave={() => setTooltipContent('')}
               >
-                <circle r={0.5} fill="#F10" stroke="#fff" strokeWidth={0} />
+                <circle r={1.5} fill="#FF735F" stroke="#fff" strokeWidth={0} />
               </Marker>
             ))}
           {latestLibrary && (
@@ -94,13 +95,16 @@ const Map = ({ setTooltipContent }) => {
               subject={[latestLibrary.longitude, latestLibrary.latitude]}
               dx={0}
               dy={0}
+              style={{
+                fill: '#FF735F',
+                stroke: '#FF735F',
+                strokeWidth: 0.25,
+                opacity: 1,
+
+                fontSize: '1.5rem'
+              }}
             >
-              <text
-                x={5}
-                fontSize={10}
-                alignmentBaseline="middle"
-                enableBackground={'red'}
-              >
+              <text x={5} fontSize={10} alignmentBaseline="middle">
                 {latestLibrary.googleMapsName}
               </text>
             </Annotation>
